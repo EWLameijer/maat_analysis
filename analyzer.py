@@ -9,8 +9,10 @@ from script_paths import CLOC_DIR, MAAT_DIR, MERGE_DIR, TRANSFORM_DIR
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
 name = input("Please give an abbreviation for the file(s): ");
+sinceDate = input("Please give the date since when the log should be analyzed (default 2021-08-01): ")
+if (sinceDate == "") sinceDate = "2021-08-01"
 
-create_log = "git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after=2023-08-15 > git_log_" + name + ".txt"
+create_log = "git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} > git_log_" + name + ".txt"
 subprocess.check_output(create_log, shell=True)
 print("Created git log")
 
