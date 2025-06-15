@@ -4,7 +4,9 @@ from script_paths import MAAT_DIR
 
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
-sinceDate = input("Please give the date the git log has to be analyzed from (default 2020-01-01): ")
+DEFAULT_DATE = "2020-01-01"
+sinceDate = input(f"Please give the date the git log has to be analyzed from (default {DEFAULT_DATE}): ")
+if sinceDate == "": sinceDate = DEFAULT_DATE
 name = input("Please give an abbreviation for the file(s): ");
 
 print("Creating git log")
