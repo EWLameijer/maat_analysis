@@ -8,9 +8,10 @@ from script_paths import CLOC_DIR, MAAT_DIR, MERGE_DIR, TRANSFORM_DIR
 
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
-name = input("Please give an abbreviation for the file(s): ");
+name = input("Please give an abbreviation for the file(s): ")
+date = input("Please give the date after which you want the code to be analyzed (like 2023-04-02)")
 
-create_log = "git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after=2023-08-15 > git_log_" + name + ".txt"
+create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={date} > git_log_" + name + ".txt"
 subprocess.check_output(create_log, shell=True)
 print("Created git log")
 
@@ -33,5 +34,6 @@ print("Created JSON graph")
 
 display = rf"copy hotspots_{name}.json {TRANSFORM_DIR}\hotspots.json"
 subprocess.check_output(display, shell=True)
-print("Check localhost:8080")
+print("If you haven't already, go to the 'maat-scripts\\transform' folder and use 'python -m http.server'.")
+print("Check http://localhost:8000/crime-scene-hotspots.html")
 
