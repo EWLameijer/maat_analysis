@@ -8,33 +8,38 @@ from script_paths import CLOC_DIR, MAAT_DIR, MERGE_DIR, TRANSFORM_DIR
 
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
-name = input("Please give an abbreviation for the file(s): ");
-sinceDate = input("Please give the date since when the log should be analyzed (default 2021-08-01): ")
-if (sinceDate == "") sinceDate = "2021-08-01"
+output_name = input("Please give an abbreviation for the output file(s): ")
+DEFAULT_DATE = "2021-08-01"
+sinceDate = input(f"Please give the date since when the log should be analyzed (default {DEFAULT_DATE}): ")
+if (sinceDate == ""): sinceDate = DEFAULT_DATE
 
-create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={date} > git_log_" + name + ".txt"
+print("Creating git log")
+create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} > git_log_{output_name}.txt"
 subprocess.check_output(create_log, shell=True)
 print("Created git log")
 
-run_maat = rf"java -jar {MAAT_DIR}\code-maat-1.0.4-standalone.jar -l git_log_{name}.txt -c git2 -a revisions > activity_{name}.csv"
+print("Running Codemaat to gather git activity per file")
+run_maat = rf"java -jar {MAAT_DIR}\code-maat-1.0.4-standalone.jar -l git_log_{output_name}.txt -c git2 -a revisions > activity_{output_name}.csv"
 subprocess.check_output(run_maat, shell=True)
 print("Ran Codemaat")
 
-# run_cloc =rf"{CLOC_DIR}\cloc-2.04.exe ./ --unix --by-file --csv --quiet --report-file=complexity_{name}.csv"
-run_cloc =rf"{CLOC_DIR}\cloc-2.04.exe ./ --unix --by-file --csv --exclude-ext=csv,json,txt --report-file=complexity_{name}.csv"
+print("Using cloc to count lines")
+run_cloc =rf"{CLOC_DIR}\cloc-2.04.exe ./ --unix --by-file --csv --exclude-ext=csv,json,txt --report-file=complexity_{output_name}.csv"
 subprocess.check_output(run_cloc, shell=True)
 print("Gathered line counts")
 
-create_hotspots = rf"python {MERGE_DIR}\merge_comp_freqs.py activity_{name}.csv complexity_{name}.csv > hotspots_{name}.csv"
+print("Looking for hotspots - by combining file size data with file frequency change data")
+create_hotspots = rf"python {MERGE_DIR}\merge_comp_freqs.py activity_{output_name}.csv complexity_{output_name}.csv > hotspots_{output_name}.csv"
 subprocess.check_output(create_hotspots, shell=True)
 print("Found hotspots")
 
-create_json_graph = rf"python {TRANSFORM_DIR}\csv_as_enclosure_json.py --structure complexity_{name}.csv --weights activity_{name}.csv > hotspots_{name}.json"
+print("Creating a JSON graph")
+create_json_graph = rf"python {TRANSFORM_DIR}\csv_as_enclosure_json.py --structure complexity_{output_name}.csv --weights activity_{output_name}.csv > hotspots_{output_name}.json"
 subprocess.check_output(create_json_graph, shell=True)
 print("Created JSON graph")
 
-display = rf"copy hotspots_{name}.json {TRANSFORM_DIR}\hotspots.json"
-subprocess.check_output(display, shell=True)
-print("If you haven't already, go to the 'maat-scripts\\transform' folder and use 'python -m http.server'.")
-print("Check http://localhost:8000/crime-scene-hotspots.html")
+print("Display graph on server")
+display_graph_on_server = rf"copy hotspots_{output_name}.json {TRANSFORM_DIR}\hotspots.json"
+subprocess.check_output(display_graph_on_server, shell=True)
+print("Check http://localhost:8000/crime-scene-hotspots.html (remember to start a local server first, for example with 'python -m http.server')")
 
