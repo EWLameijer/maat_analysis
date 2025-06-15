@@ -1,0 +1,4 @@
+= Tools for using Code Maat
+
+== Instructions
+. create a directory on your computer to house the analysis software (say in C:\development\tools)
