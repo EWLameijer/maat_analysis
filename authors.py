@@ -12,7 +12,7 @@ name = input("Please give an abbreviation for the file(s): ");
 sinceDate = input("Please give the date since when the log should be analyzed (default 2021-08-01): ")
 if (sinceDate == ""): sinceDate = "2021-08-01"
 
-create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} -- src/Compilers/CSharp/Test > git_log_" + name + ".txt"
+create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} > git_log_" + name + ".txt"
 subprocess.check_output(create_log, shell=True)
 print("Created git log")
 
