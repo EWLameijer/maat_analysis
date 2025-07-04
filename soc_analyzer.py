@@ -5,7 +5,7 @@ from script_paths import MAAT_DIR
 
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
-name = input("Please give an abbreviation for the file(s): ");
+name = input("Please give an abbreviation for the file(s): ")
 
 create_log = "git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after=2020-01-01 > git_log_" + name + ".txt"
 subprocess.check_output(create_log, shell=True)
