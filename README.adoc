@@ -1,7 +1,7 @@
 = Tools for using Code Maat
 
 == Instructions
-. if "python" (or "py") doesn't do anything yet on your system, install it (https://www.python.org/downloads/)
+. if `python` (or `py`) doesn't do anything yet on your system, install it (https://www.python.org/downloads/)
 . create a directory on your computer to house the analysis software (say in C:\development\tools)
 . in that directory, download the jar-file of code-maat, which will analyze git logs: https://github.com/adamtornhill/code-maat/releases/tag/v1.0.4
 . in the same directory, clone the https://github.com/adamtornhill/maat-scripts project
