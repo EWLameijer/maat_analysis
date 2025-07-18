@@ -23,7 +23,7 @@ subprocess.check_output(run_maat, shell=True)
 print("Ran Codemaat")
 
 print("Using cloc to count lines")
-run_cloc =rf"{CLOC} ./ --unix --by-file --csv --exclude-ext=csv,json,txt --report-file=complexity_{output_name}.csv"
+run_cloc =rf"{CLOC} ./ --unix --by-file --csv --exclude-ext=adoc,csv,json,md,txt --fullpath --not-match-d=.*node_modules --report-file=complexity_{output_name}.csv"
 subprocess.check_output(run_cloc, shell=True)
 print("Gathered line counts")
 
@@ -40,5 +40,5 @@ print("Created JSON graph")
 print("Display graph on server")
 display_graph_on_server = rf"copy hotspots_{output_name}.json {TRANSFORM_DIR}\hotspots.json"
 subprocess.check_output(display_graph_on_server, shell=True)
-print(f"Check http://localhost:8000/crime-scene-hotspots.html (remember to start a local server first, for example with '{PYTHON} -m http.server')")
+print(f"Check http://localhost:8000/crime-scene-hotspots.html (remember to start a local server first at maat-scripts/transform, for example with '{PYTHON} -m http.server')")
 
