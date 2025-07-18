@@ -1,6 +1,6 @@
 = Tools for using Code Maat
 
-== Instructions
+== Setting up 
 . if `python` (or `py`) doesn't do anything yet on your system, install Python (https://www.python.org/downloads/)
 . if `java --version` doesn't do anything yet on your system, install Java (for example, via https://adoptium.net/)
 . create a directory on your computer to house the analysis software (say in C:\development\tools)
@@ -8,6 +8,9 @@
 . in the same directory, clone the https://github.com/adamtornhill/maat-scripts project
 . IMPORTANT: switch the maat-scripts project to the python3 branch 
 . in the same directory (C:\development\tools or such), clone this project (https://github.com/EWLameijer/maat_analysis)
-. in the same directory, download cloc https://github.com/AlDanial/cloc/releases/tag/v2.04
-. go to the /maat-scripts/transform directory, and run a web server (like ``python -m http.server``)
-. go to the /maat_analysis directory, and run a script of your choice, like ``python analysis.py``
+. in the same directory, download cloc https://github.com/AlDanial/cloc/releases
+. go to the /maat_analysis directory, copy `script_paths_example.py` to `script_paths.py`, and adjust the directories and cloc-version to those you are using
+
+== Running an analysis
+. and run a script of your choice, like ``python analysis.py``
+. if you want to do a hotspot analysis, go to the /maat-scripts/transform directory, and run a web server (like ``python -m http.server``)
