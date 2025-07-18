@@ -12,5 +12,5 @@
 . Go to the /maat_analysis directory, copy `script_paths_example.py` to `script_paths.py`, and adjust the directories and cloc-version to those you are using.
 
 == Running an analysis
-. Run a script of your choice, like `python analysis.py`.
-. If you want to do a hotspot analysis, go to the /maat-scripts/transform directory, and run a web server (like `python -m http.server`).
+. Run a script of your choice, like `python hotspots.py`.
+. If you want to do a hotspot analysis, also go to the /maat-scripts/transform directory, and run a web server (like `python -m http.server`).
