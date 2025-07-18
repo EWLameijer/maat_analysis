@@ -2,6 +2,8 @@ import os
 import subprocess
 from script_paths import MAAT_DIR
 
+# ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
+
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
 DEFAULT_DATE = "2020-01-01"

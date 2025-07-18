@@ -3,6 +3,8 @@ import subprocess
 
 from script_paths import MAAT_DIR
 
+# ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
+
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
 name = input("Please give an abbreviation for the file(s): ")

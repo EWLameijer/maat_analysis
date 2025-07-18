@@ -1,10 +1,8 @@
 import os
 import subprocess
-from script_paths import CLOC_DIR, MAAT_DIR, MERGE_DIR, TRANSFORM_DIR 
+from script_paths import MAAT_DIR
 
 # ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
-# ALERT: YOU MAY WANT TO REMOVE NODE_MODULES FOR CLOC
-
 
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
