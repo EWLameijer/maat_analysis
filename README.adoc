@@ -6,7 +6,6 @@
 . Create a directory on your computer to house the analysis software (say in `C:\development\tools`).
 . In that directory, download the jar-file of code-maat, which will analyze git logs: https://github.com/adamtornhill/code-maat/releases/tag/v1.0.4 .
 . In the same directory, clone the https://github.com/adamtornhill/maat-scripts project.
-. IMPORTANT: switch the maat-scripts project to the python3 branch. 
 . In the same directory (`C:\development\tools` or such), clone this project (https://github.com/EWLameijer/maat_analysis).
 . In the same directory, download cloc (https://github.com/AlDanial/cloc/releases).
 . Go to the /maat_analysis directory, copy `script_paths_example.py` to `script_paths.py`, and adjust the directories and cloc-version to those you are using.
