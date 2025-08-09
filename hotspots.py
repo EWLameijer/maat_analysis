@@ -1,5 +1,7 @@
 import os
 import subprocess
+
+from common_code import git_utils
 from script_paths import CLOC, MAAT_DIR, MERGE_DIR, PYTHON, TRANSFORM_DIR 
 
 # ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
@@ -8,14 +10,7 @@ from script_paths import CLOC, MAAT_DIR, MERGE_DIR, PYTHON, TRANSFORM_DIR
 dir = input("Please give the directory to analyze: ")
 os.chdir(dir)
 output_name = input("Please give an abbreviation for the output file(s): ")
-DEFAULT_DATE = "2021-08-01"
-sinceDate = input(f"Please give the date since when the log should be analyzed - ideally this should be some time in the past, like one year in the past, or after the last major refactoring (default {DEFAULT_DATE}): ")
-if (sinceDate == ""): sinceDate = DEFAULT_DATE
-
-print("Creating git log")
-create_log = f"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} > git_log_{output_name}.txt"
-subprocess.check_output(create_log, shell=True)
-print("Created git log")
+git_utils.create_log(output_name)
 
 print("Running Codemaat to gather git activity per file")
 run_maat = rf"java -jar {MAAT_DIR}/code-maat-1.0.4-standalone.jar -l git_log_{output_name}.txt -c git2 -a revisions > activity_{output_name}.csv"
