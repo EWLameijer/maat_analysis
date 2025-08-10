@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 
 from common_code import git_utils
@@ -37,7 +38,6 @@ subprocess.check_output(create_json_graph, shell=True)
 print("Created JSON graph")
 
 print("Display graph on server")
-import shutil
 display_graph_on_server = shutil.copy(rf"hotspots_{output_name}.json", f"{TRANSFORM_DIR}/hotspots.json")
 print(f"Check http://localhost:8000/crime-scene-hotspots.html (remember to start a local server first at maat-scripts/transform, for example with '{PYTHON} -m http.server')")
 
