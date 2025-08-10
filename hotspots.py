@@ -18,12 +18,12 @@ run_maat = rf"java -jar {MAAT_DIR}/code-maat-1.0.4-standalone.jar -l git_log_{ou
 subprocess.check_output(run_maat, shell=True)
 print("Ran Codemaat")
 
-directories_to_exclude = ["build", "dist", ".idea", "node_modules", "venv" ]
-directories_to_exclude_list = f"({','.join(directories_to_exclude)})"
+directories_to_exclude = ["build", "coverage", "dist", ".idea", "node_modules", "venv" ]
+directories_to_exclude_list = '|'.join(directories_to_exclude)
 directories_to_exclude_text = f"({', '.join(directories_to_exclude)})"
 
 print(f"Using cloc to count lines, excluding {directories_to_exclude_text}")
-run_cloc =rf"{CLOC} ./ --unix --by-file --csv --exclude-ext=adoc,csv,json,md,txt --fullpath --exclude-dir={directories_to_exclude_list} --report-file=complexity_{output_name}.csv"
+run_cloc =rf'{CLOC} ./ --unix --by-file --csv --exclude-ext=adoc,csv,json,md,txt --fullpath --not-match-d="({directories_to_exclude_list})" --report-file=complexity_{output_name}.csv'
 subprocess.check_output(run_cloc, shell=True)
 print("Gathered line counts")
 

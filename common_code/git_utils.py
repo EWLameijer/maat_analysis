@@ -1,8 +1,6 @@
-from datetime import datetime 
-from dateutil.relativedelta import relativedelta
 import subprocess
 
-from one_year_ago import one_year_ago_str
+from .one_year_ago import one_year_ago_str  
 
 def create_log(name: str):
     __create_log_with_format(name, "--all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames")
