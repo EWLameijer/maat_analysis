@@ -3,7 +3,7 @@ import shutil
 import subprocess
 
 from common_code import git_utils
-from script_paths import CLOC, MAAT_DIR, MERGE_DIR, PYTHON, TRANSFORM_DIR 
+from script_paths import CLOC, MERGE_DIR, PYTHON, RUN_MAAT, TRANSFORM_DIR 
 
 # ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
 # ALERT: YOU MAY WANT TO REMOVE NODE_MODULES FOR CLOC
@@ -14,7 +14,7 @@ output_name = input("Please give an abbreviation for the output file(s): ")
 git_utils.create_log(output_name)
 
 print("Running Codemaat to gather git activity per file")
-run_maat = rf"java -jar {MAAT_DIR}/code-maat-1.0.4-standalone.jar -l git_log_{output_name}.txt -c git2 -a revisions > activity_{output_name}.csv"
+run_maat = rf"{RUN_MAAT} -l git_log_{output_name}.txt -c git2 -a revisions > activity_{output_name}.csv"
 subprocess.check_output(run_maat, shell=True)
 print("Ran Codemaat")
 
