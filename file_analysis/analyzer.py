@@ -5,10 +5,16 @@ import re
 
 from common_code import one_year_ago
 
+def to_analysis_path(filename: str) -> str: 
+    return rf'{CODEMAAT_ANALYSIS_DIR}/{filename}'
+
 CODEMAAT_ANALYSIS_DIR = 'codemaat-analysis'
 DAYS_BETWEEN_REFRESHES = 21 # do about 1 analysis per sprint
 GIT_LOG_FILE = 'git_log.txt'
-GIT_LOG_PATH = rf'{CODEMAAT_ANALYSIS_DIR}/{GIT_LOG_FILE}'
+GIT_LOG_PATH = to_analysis_path(GIT_LOG_FILE)
+GIT_COUPLING_FILE = 'coupling.csv'
+GIT_COUPLING_PATH = to_analysis_path(GIT_COUPLING_FILE)
+
 
 class Analyzer:
     def __init__(self, git_repo, run_maat) -> None:
@@ -45,7 +51,7 @@ class Analyzer:
     
     def __update_analysis_directory(self):
         self.__create_git_log()
-        #analyze_coupling(self.run_maat)
+        self.__analyze_coupling()
     # get_authors_per_file()
     # count_lines()
     # get_activity_per_file()  
@@ -55,16 +61,23 @@ class Analyzer:
         sinceDate = input(f"Please give the date since when the log should be analyzed (default {DEFAULT_DATE}): ")
         if (sinceDate == ""): sinceDate = DEFAULT_DATE
         print(f"Creating git log in '{os.getcwd()}'" )
+        os.chdir(self.git_repo)
         create_log = fr"git log --all --numstat --date=short --pretty=format:--%h--%ad--%aN --no-renames --after={sinceDate} > {GIT_LOG_PATH}"
         subprocess.check_output(create_log, shell=True)
         print("Created git log")    
-        # def analyze_coupling(self):
-        #     print("Running Codemaat to analyze coupling")
-        #     run_maat = rf"{self.run_maat} -l git_log_{name}.txt -c git2 -a coupling > coupling_{name}.csv"
-        #     subprocess.check_output(run_maat, shell=True)
-        #     print(f"Ran Codemaat. Please check 'coupling_{name}.csv'.")
 
-    def calculate_blame(self, filename: str):
+    def __analyze_coupling(self):
+        MIN_OCCURRENCES_TOGETHER = 1 # CodeMaat's default is 5
+        MIN_DEGREE = 1 # CodeMaat's default is 30
+
+        print("Running Codemaat to analyze coupling")
+        calculate_coupling_command = (rf"{self.run_maat} -l {GIT_LOG_PATH} -c git2 "
+                                      rf"-a coupling -n {MIN_OCCURRENCES_TOGETHER} -i {MIN_DEGREE} > {GIT_COUPLING_PATH}")
+        subprocess.check_output(calculate_coupling_command, shell=True)
+        print(f"Analyzed coupling. Please check '{GIT_COUPLING_FILE}'.")
+
+
+    def show_authors(self, filename: str):
         run_blame = f"git blame {filename}"
         output_as_bstring = subprocess.check_output(run_blame, shell=True)
         output = str(output_as_bstring, encoding='utf-8')
@@ -80,9 +93,4 @@ class Analyzer:
         print('\nAuthors:')
         for author, line_count in linecounts.items():
             print("{:20} {:5} {:10.1%}".format(author, line_count, line_count / total_lines))
-#     # for C:\development\AttendanceTracker\frontend\src\lesson-management-page\LessonManagement.tsx
-#     # golden standard: 396 lines, 212 EW 184 MtP
-#     # from porcelain: 396 lines, 267 EW 129 MtP WHY?
-#     # first lines go as expected, but const lessonmanagement would be from EW according to blame, Mark according to Porcelain?
-#     # Ah! porcelain creates a catalogue of commits with author, and then just uses the commit hash
-#     # Can I use normal blame after the first ")" (and author after first '(')?
+

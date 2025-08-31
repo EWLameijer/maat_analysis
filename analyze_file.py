@@ -227,9 +227,9 @@ nice_synonyms = string_utils.simplify_prefixes(list(synonyms))
 print("\nThe synonyms of the file are:")
 for nice_synonym in nice_synonyms: print(f'- {nice_synonym}')
 
-analyzer.calculate_blame(filename)
+analyzer.show_authors(filename)
 
-# find the authors (try regular git blame)
+
 
 
 
