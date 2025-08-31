@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 from .one_year_ago import one_year_ago_str  
 
@@ -7,6 +8,16 @@ def create_log(name: str):
 
 def create_abbreviated_log(name: str):
     __create_log_with_format(name, "--pretty=format:%s")
+
+def find_git_root(filename: str) -> str | None:
+    normalized_filename = filename.replace('\\', '/')
+    path_elements = normalized_filename.split('/')
+    for remove_steps in range(1,len(path_elements)):
+        path = "/".join(path_elements[:-remove_steps])
+        files = os.listdir(path + "/")  # +"/" because on Windows C: will refer to original directory, NOT the actual C-drive, which is "C:\"
+        is_root = ".git" in files
+        if is_root: return path
+    return None
 
 def __create_log_with_format(name: str, format: str):
     DEFAULT_DATE = one_year_ago_str()
