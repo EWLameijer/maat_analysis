@@ -1,27 +1,23 @@
-
-
-
 # import csv
-# from datetime import datetime 
+# from datetime import datetime
 # import os
 # import subprocess
 
-# from script_paths import CLOC, RUN_MAAT # , MERGE_DIR, PYTHON, TRANSFORM_DIR 
+# from script_paths import CLOC, RUN_MAAT # , MERGE_DIR, PYTHON, TRANSFORM_DIR
 # from common_code import one_year_ago
 
 # # ALERT: ENSURE PYTHON3-BRANCH IS CHECKED OUT FROM THE MAAT-SCRIPTS
 # # ALERT: YOU MAY WANT TO REMOVE NODE_MODULES FOR CLOC
 
 # CODEMAAT_ANALYSIS_DIR = 'codemaat-analysis'
-# 
+#
 # GIT_LOG_PATH = rf'{CODEMAAT_ANALYSIS_DIR}\{GIT_LOG_FILE}'
 # COMPLEXITY_FILE = 'complexity.csv'
 # COMPLEXITY_PATH = rf'{CODEMAAT_ANALYSIS_DIR}\{COMPLEXITY_FILE}'
 # ACTIVITY_FILE = 'activity.csv'
 # ACTIVITY_PATH = rf'{CODEMAAT_ANALYSIS_DIR}\{ACTIVITY_FILE}'
 # ENTITY_EFFORT_PATH = rf'{CODEMAAT_ANALYSIS_DIR}\entity-effort.csv'
-# 
-
+#
 
 
 # def get_git_log():
@@ -52,13 +48,8 @@
 #     print("Ran Codemaat")
 
 
-
-
-
-
 # def to_main_dir():
 #     os.chdir(dir)
-
 
 
 # def sort_by_element(list):
@@ -69,7 +60,7 @@
 #     file_data = []
 #     for line in csv.reader(open(ENTITY_EFFORT_PATH)):
 #         if filename.endswith(line[0]): file_data.append(line)
-    
+
 #     authors = sorted(set(row[1] for row in file_data))
 #     contributions_per_author = {
 #         author: sum(int(row[2]) for row in file_data if row[1] == author)
@@ -86,9 +77,9 @@
 #     number_of_lines = -1
 #     for line in csv.reader(open(COMPLEXITY_PATH)):
 #         current_file = line[1]
-#         if current_file and filename.endswith(current_file.strip('.')): 
+#         if current_file and filename.endswith(current_file.strip('.')):
 #             number_of_lines = int(line[4])
-#     if (number_of_lines < 0): 
+#     if (number_of_lines < 0):
 #         print(f"'{filename}' not found!")
 #         return number_of_lines
 #     higher_counts = 0
@@ -105,9 +96,9 @@
 #     number_of_commits = -1
 #     for line in csv.reader(open(ACTIVITY_PATH)):
 #         current_file = line[0]
-#         if current_file and filename.endswith(current_file.strip('.')): 
+#         if current_file and filename.endswith(current_file.strip('.')):
 #             number_of_commits = int(line[1])
-#     if (number_of_commits < 0): 
+#     if (number_of_commits < 0):
 #         print(f"'{filename}' not found!")
 #         return number_of_commits
 #     higher_counts = 0
@@ -124,12 +115,12 @@
 #     print("File stats:")
 #     line_count = get_line_count(filename)
 #     commit_count = get_commit_count(filename)
-    
+
 #     # get lines of code of the file
-    
+
 #     # get number of commits of the file
 #     # print lines of code * number of commits (hotness)
-#     # get top 
+#     # get top
 
 # def calculate_blame(filename: str):
 #     run_blame = f"git blame --porcelain {filename}"
@@ -160,13 +151,12 @@
 # # IMPORTANT: find all old pseudonyms of files!
 
 
-
 # # Start the programme
 
 # dir = input('Please give the directory to analyze: ')
 # to_main_dir()
 
-# # Step 2: check if there is already a codemaat-analysis directory there, or if it is outdated. 
+# # Step 2: check if there is already a codemaat-analysis directory there, or if it is outdated.
 
 
 # if (CODEMAAT_ANALYSIS_DIR not in os.listdir()):
@@ -184,12 +174,6 @@
 
 # # What do I want? First: who has worked on a certain file
 
-# filename = input('What is the path of the file you wish to analyze? ')
-# stripped_filename = filename.strip("\"'")
-# filename_with_slashes = stripped_filename.replace('\\','/')
-# get_file_stats(filename_with_slashes)
-# get_authors(filename_with_slashes)
-# calculate_blame(filename_with_slashes)
 
 from common_code import git_utils, string_utils
 from file_analysis import analyzer, file_analysis
@@ -198,7 +182,7 @@ from script_paths import RUN_MAAT
 # Goals
 # 1. To ask for help, find out authors of the file (USE GIT BLAME!, likely with --porcelain)
 # 2. To find other files to potentially modify, find the coupling
-# 3. To get danger status, get 
+# 3. To get danger status, get
 #   sum of coupling (also relative)
 #   DONE! number of lines (also relative)
 #   number of commits (also relative)
@@ -213,7 +197,7 @@ from script_paths import RUN_MAAT
 # ask for the name of the file
 filename = string_utils.get_normalized_filename()
 git_repo = git_utils.find_git_root(filename)
-if git_repo == None: 
+if git_repo == None:
     print("Repository for '{filename}' not found.")
     exit()
 
@@ -225,13 +209,14 @@ analyzer = analyzer.Analyzer(git_repo, RUN_MAAT)
 synonyms = file_analysis.get_synonyms(filename, git_repo)
 nice_synonyms = string_utils.simplify_prefixes(list(synonyms))
 print("\nThe synonyms of the file are:")
-for nice_synonym in nice_synonyms: print(f'- {nice_synonym}')
+for nice_synonym in nice_synonyms:
+    print(f"- {nice_synonym}")
 
 analyzer.show_authors(filename)
 
+# Coupling: First perform coupling analysis
 
+analyzer.show_coupling(filename)
 
-
-
-
-
+# C:\development\AttendanceTracker\frontend\src\lesson-management-page\LessonManagement.tsx // authors
+# C:/development\AttendanceTracker\backend/src/main/java/nl/itvitae/attendancetracker/SecurityConfiguration.java //Coupling
