@@ -175,8 +175,8 @@
 # # What do I want? First: who has worked on a certain file
 
 
-from common_code import git_utils, string_utils
-from file_analysis import analyzer, file_analysis
+from common_code import file_analysis, git_utils, string_utils
+from file_analysis import analyzer
 from script_paths import RUN_MAAT
 
 # Goals
@@ -195,28 +195,58 @@ from script_paths import RUN_MAAT
 # he name of the file (the name of the file implies git repo?)
 
 # ask for the name of the file
+
+
+def show_synonyms(filename: str, synonyms: set[str]) -> None:
+    if len(synonyms) > 1:
+        print(f"\nThe synonyms of the file '{filename}' are:")
+        for synonym in synonyms:
+            print(f"- {synonym}")
+    else:
+        print(f"The file '{filename}' does not have any synonyms.")
+
+
 filename = string_utils.get_normalized_filename()
+print()
+
 git_repo = git_utils.find_git_root(filename)
 if git_repo == None:
-    print("Repository for '{filename}' not found.")
+    print(f"Repository for '{filename}' not found.")
     exit()
 
 print(f"The file '{filename}' is in repository '{git_repo}'.")
 
-analyzer = analyzer.Analyzer(git_repo, RUN_MAAT)
 
-# get the names of the file
-synonyms = file_analysis.get_synonyms(filename, git_repo)
-nice_synonyms = string_utils.simplify_prefixes(list(synonyms))
-print("\nThe synonyms of the file are:")
-for nice_synonym in nice_synonyms:
-    print(f"- {nice_synonym}")
+# TODO TEMP
 
-analyzer.show_authors(filename)
+import shutil
+from file_analysis.analyzer import get_analyzer_or_throw, show_authors
+
+# shutil.rmtree(git_repo + "/codemaat-analysis")
+try:
+    analyzer = get_analyzer_or_throw(filename)
+    synonyms = analyzer.get_synonyms()
+    show_synonyms(filename, synonyms)
+    authors = analyzer.get_authors()
+except Exception as ex:
+    print(ex)
+    print("\nExiting.\n")
+    exit()
+
+show_authors(filename)
 
 # Coupling: First perform coupling analysis
 
 analyzer.show_coupling(filename)
 
 # C:\development\AttendanceTracker\frontend\src\lesson-management-page\LessonManagement.tsx // authors
+# C:\development\AttendanceTracker\frontend\src\Class.ts // Coupling
 # C:/development\AttendanceTracker\backend/src/main/java/nl/itvitae/attendancetracker/SecurityConfiguration.java //Coupling
+# C:\development\AttendanceTracker\frontend\src\history-page\HistoryView.tsx
+# C:/development/AttendanceTracker/frontend/src/group-management-page/EditGroup.tsx
+
+# C:/development/AttendanceTracker/frontend/src/group-management-page/EditGroup.tsx
+#   once known as
+#       admin-view/GroupEditComponent.tsx
+#       group-management-page/EditGroup.tsx
+#   frontend/src/admin-view/GroupEditComponent.tsx	frontend/src/admin-view/MemberEditComponent.tsx	70	9

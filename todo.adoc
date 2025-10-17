@@ -1,0 +1,5 @@
+To investigate
+
+
+
+1. C:\development\AttendanceTracker\frontend\src\Class.ts : can't be found as it has been renamed/split...

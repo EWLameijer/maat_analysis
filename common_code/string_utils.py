@@ -1,6 +1,10 @@
 def get_normalized_filename() -> str:
     raw_filename = input("Please give the name of the file: ")
-    return raw_filename.replace("\\", "/")
+    return normalize_filename(raw_filename)
+
+
+def normalize_filename(raw_filename: str) -> str:
+    return raw_filename.strip().replace("\\", "/")
 
 
 def simplify_prefixes(filenames: list[str]) -> list[str]:

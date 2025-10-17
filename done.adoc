@@ -1,0 +1,2 @@
+ why does C:/development/AttendanceTracker/backend/src/main/java/nl/itvitae/attendancetracker/SecurityConfiguration.java give a bad (Eric-Wubbo ? =>
+ Because files that do NOT have synonyms have the author as second element on a git blame line, not the name of the original file 
