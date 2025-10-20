@@ -22,3 +22,48 @@ TODO: check shell=False?
 
 
 file = git_root + git_path
+
+== in analysis_preparer.py
+
+=== _contains_forbidden_path(filename: str) -> bool 
+Indicates whether the filename actually is in the maat-analysis directory or a forbidden directory like node_modules; this speeds up analysis of the directory 
+
+=== AnalysisPreparer
+Purpose: investigate whether the repository to be investigated has been analyzed recently enough; and if not, to create analysis files and put them in the `codemaat-analysis` directory.
+
+Methods:
+==== Constructor(git_root)
+Checks if a basic analysis exists (calls `_ensure_basic_analysis_exists`)
+
+==== _ensure_basic_analysis_exists(self)
+- creates analysis directory (`codemaat-analysis`) if necessary
+- creates analysis files if necessary (if previous analysis has not yet taken place or has taken place too long ago). Calls `_update_analysis_directory` for that 
+
+==== _analysis_outdated(self) -> bool 
+Checks if the current analysis is outdated (longer than say 1 sprint ago)
+
+==== _update_analysis_directory(self)
+Creates the analysis files. At the moment:
+
+- the Git log (via `_create_git_log()`) - the git log is needed to calculate coupling later 
+- the file synonyms-file (via `_analyze_file_synonyms()` ). This is also needed to calculate coupling, as the name of a file can change
+- Maat's coupling file, via `_analyze_coupling()`.
+
+==== _create_git_log(self)
+- creates the Git log, used for calculating coupling later 
+
+==== _analyze_file_synonyms(self)
+- creates a file containing the historical names/synonyms of each file currently in the repository 
+
+==== _analyze_coupling(self)
+- creates a coupling file - which files are committed together with what other files? Note that this is a codemaat-method, and purely based on the Git log, it does not take filename changes into account.
+
+== in analyzer.py 
+
+=== Analyzer 
+The analyzer class can be used to retrieve analysis data of one particular file.
+
+
+
+
+

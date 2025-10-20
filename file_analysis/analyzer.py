@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 class Analyzer:
-
     def __init__(self, git_repo: str, filename: str):
         self.git_repo = git_repo
         self.filename = filename

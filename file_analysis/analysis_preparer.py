@@ -18,6 +18,15 @@ DAYS_BETWEEN_REFRESHES = 21  # do about 1 analysis per sprint
 FORBIDDEN_PATHS = ["node_modules"]
 
 
+def _contains_forbidden_path(filename: str) -> bool:
+    if CODEMAAT_ANALYSIS_DIR in filename:
+        return True
+    for path in FORBIDDEN_PATHS:
+        if path in filename:
+            return True
+    return False
+
+
 class AnalysisPreparer:
     git_repo: str
 
@@ -48,8 +57,8 @@ class AnalysisPreparer:
 
     def _update_analysis_directory(self):
         self._create_git_log()
-        self._analyze_file_histories()
-        self.__analyze_coupling()
+        self._analyze_file_synonyms()
+        self._analyze_coupling()
 
     def _create_git_log(self):
         DEFAULT_DATE = one_year_ago.one_year_ago_str()
@@ -64,21 +73,15 @@ class AnalysisPreparer:
         subprocess.check_output(create_log, shell=True)
         print("Created git log")
 
-    def _analyze_file_histories(self):
-        code_units: list[CodeUnit] = []
+    def _analyze_file_synonyms(self):
         print(f"Analyzing file history from '{self.git_repo}'.")
         file_synonyms = {}
         for raw_filename in glob.iglob(self.git_repo + "**/**", recursive=True):
             filename = string_utils.normalize_filename(raw_filename)
-            if not self._contains_forbidden_path(filename):
+            if not _contains_forbidden_path(filename):
                 synonyms = file_analysis.get_synonyms(filename, self.git_repo)
                 if len(synonyms) > 0:
-                    code_units.append(
-                        VersionedCodeUnit(filename, self.git_repo, synonyms)
-                    )
                     file_synonyms[filename] = synonyms
-                else:
-                    code_units.append(UnversionedCodeUnit(self.git_repo, filename))
 
         filenames = sorted(file_synonyms.keys())
         lines = []
@@ -88,15 +91,7 @@ class AnalysisPreparer:
         with open(SYNONYMS_PATH, "w") as synonym_file:
             synonym_file.writelines(lines)
 
-    def _contains_forbidden_path(self, filename: str) -> bool:
-        if CODEMAAT_ANALYSIS_DIR in filename:
-            return True
-        for path in FORBIDDEN_PATHS:
-            if path in filename:
-                return True
-        return False
-
-    def __analyze_coupling(self):
+    def _analyze_coupling(self):
         MIN_OCCURRENCES_TOGETHER = 1  # CodeMaat's default is 5
         MIN_DEGREE = 1  # CodeMaat's default is 30
 
