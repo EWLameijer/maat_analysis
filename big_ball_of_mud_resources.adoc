@@ -2,13 +2,13 @@
 :toc:
 
 == Contact data
-If you're from CGI, you can easily contact me via the internal personnel repository. If you're not from CGI - try https://www.linkedin.com/in/eric-wubbo-lameijer-64303013/[LinkedIn].
+For comments, questions, tips, or if you're interested in talking more about dealing with complex code: If you're from CGI, you can easily contact me via the internal personnel repository/Teams/email. If you're not from CGI - try https://www.linkedin.com/in/eric-wubbo-lameijer-64303013/[LinkedIn].
 
 == Books/works referred to
 - [[AC]]AC "Accelerate - Building and Scaling High Performing Technology Organizations", Forsgren, Humble, Kim (2018)
 - [[CC]]CC "Your Code as a Crime Scene, 2nd Edition", Tornhill (2024)
 - [[CH]]CH "Why Software Fails", Robert Charette (2005)
-- [[CM]]CM "Code for Machines, Not Just Humans: Quantifying AI-Friendliness with Code Health Metrics",Borg, Hagatulah,  Tornhill, Söderberg (2026)
+- [[CM]]CM "Code for Machines, Not Just Humans: Quantifying AI-Friendliness with Code Health Metrics", Borg, Hagatulah,  Tornhill, Söderberg (2026)
 - [[CR]]CR "Code Red: The Business Impact of Code Quality - A Quantitative Study of 39 Proprietary Production Codebases", Tornhill, Borg, 2022.
 - [[SP]]SP "Software developer productivity loss due to technical debt—A replication and extension study examining developers' development work", Besker, Martini, Bosch (2019)
 - [[TP]]TP "Technical Debt in Practice", Ernst, Kazman, Delange (2021)
@@ -21,6 +21,8 @@ If you're from CGI, you can easily contact me via the internal personnel reposit
 - Complex code taking 124% longer <<CR>>
 - Complex code can make estimates uncertain by a factor of 9x <<CR>>
 - New work in high quality codebases: 49% vs 38% <<AC>> (p51)
+- Recommended refactoring percentage: 15-20% <<TP>> (p219)
+- Softserve example (14/41 months) <<TP>> (p62)
 - The 4x personnel project: <<CC>>. Scenario described on p197-198, picture from p210.
 
 == Other useful resources
