@@ -33,6 +33,7 @@ For comments, questions, tips, or if you're interested in talking more about dea
 - https://github.com/EWLameijer/maat_analysis[My own scripts to make it a bit easier to do CodeMaat analyses without having to manually type multiple commands with the correct parameters in the correct sequence]
 - "Managing Technical Debt - Reducing Friction in Software Development", Kruchten, Nord, Ozkaya (2019)
 - "Software Design X-Rays -Fix Technical Debt with Behavioral Code Analysis", Tornhill, 2018.
+- The SoftServe and BrightSquid examples used the https://archdia.com/[DV8] code analysis tool of ArchDia.
 
 
 
