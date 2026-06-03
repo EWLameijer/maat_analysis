@@ -1,0 +1,43 @@
+= From Big Ball of Mud to workable code - resources
+:toc:
+
+== Contact data
+If you're from CGI, you can easily contact me via the internal personnel repository. If you're not from CGI - try https://www.linkedin.com/in/eric-wubbo-lameijer-64303013/[LinkedIn].
+
+== Books/works referred to
+- [[AC]]AC "Accelerate - Building and Scaling High Performing Technology Organizations", Forsgren, Humble, Kim (2018)
+- [[CC]]CC "Your Code as a Crime Scene, 2nd Edition", Tornhill (2024)
+- [[CH]]CH "Why Software Fails", Robert Charette (2005)
+- [[CM]]CM "Code for Machines, Not Just Humans: Quantifying AI-Friendliness with Code Health Metrics",Borg, Hagatulah,  Tornhill, Söderberg (2026)
+- [[CR]]CR "Code Red: The Business Impact of Code Quality - A Quantitative Study of 39 Proprietary Production Codebases", Tornhill, Borg, 2022.
+- [[SP]]SP "Software developer productivity loss due to technical debt—A replication and extension study examining developers' development work", Besker, Martini, Bosch (2019)
+- [[TP]]TP "Technical Debt in Practice", Ernst, Kazman, Delange (2021)
+
+== Sources for the numbers
+- AI working better on better code <<CM>>
+- Avoidable work 23% <<SP>>
+- Avoidable work 40-50% <<CH>>
+- Brightsquid example <<TP>> (p77)
+- Complex code taking 124% longer <<CR>>
+- Complex code can make estimates uncertain by a factor of 9x <<CR>>
+- New work in high quality codebases: 49% vs 38% <<AC>> (p51)
+- The 4x personnel project: <<CC>>. Scenario described on p197-198, picture from p210.
+
+== Other useful resources
+
+- https://github.com/adamtornhill/code-maat/[Tornhill's (free) CodeMaat software]
+- https://github.com/adamtornhill/maat-scripts[Tornhill's scripts to help with CodeMaat output and create graphs, for example]
+- https://codescene.com/[Tornhill's (commercial) product CodeScene, combines static code analysis with Git analysis, available as cloud solution but also on-prem]. It's also in the "Assess" category on the https://www.thoughtworks.com/radar/tools/codescene[Thoughtworks Tech Radar, April 2026]
+- https://github.com/EWLameijer/maat_analysis[My own scripts to make it a bit easier to do CodeMaat analyses without having to manually type multiple commands with the correct parameters in the correct sequence]
+- "Managing Technical Debt - Reducing Friction in Software Development", Kruchten, Nord, Ozkaya (2019)
+- "Software Design X-Rays -Fix Technical Debt with Behavioral Code Analysis", Tornhill, 2018.
+
+
+
+
+
+
+
+
+
+
