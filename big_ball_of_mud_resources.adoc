@@ -10,16 +10,22 @@ For comments, questions, tips, or if you're interested in talking more about dea
 - [[CH]]CH "Why Software Fails", Robert Charette (2005)
 - [[CM]]CM "Code for Machines, Not Just Humans: Quantifying AI-Friendliness with Code Health Metrics", Borg, Hagatulah,  Tornhill, Söderberg (2026)
 - [[CR]]CR "Code Red: The Business Impact of Code Quality - A Quantitative Study of 39 Proprietary Production Codebases", Tornhill, Borg, 2022.
+- [[MM]]MM "The Mythical Man-Month - Anniversary Edition", Brooks, 1995.
 - [[SP]]SP "Software developer productivity loss due to technical debt—A replication and extension study examining developers' development work", Besker, Martini, Bosch (2019)
 - [[TP]]TP "Technical Debt in Practice", Ernst, Kazman, Delange (2021)
 
-== Sources for the numbers
+== Sources for the numbers and stories
+- https://timesofindia.indiatimes.com/technology/tech-news/less-than-a-year-after-ceo-satya-nadella-said-30-of-microsofts-code-is-ai-written-company-appoints-an-engineering-quality-head/articleshow/128116076.cms[AI code for production still has challenges] 
 - AI working better on better code <<CM>>
 - Avoidable work 23% <<SP>>
 - Avoidable work 40-50% <<CH>>
+- https://dylanbeattie.net/songs/big_rewrite.html["Big Rewrite"] song by Dylan Beattie.
 - Brightsquid example <<TP>> (p77)
 - Complex code taking 124% longer <<CR>>
 - Complex code can make estimates uncertain by a factor of 9x <<CR>>
+- Essential versus accidental complexity <<MM>> (p177)
+- https://www.thoughtworks.com/radar/techniques/inverse-conway-maneuver[Inverse Conway Maneuver] 
+- Mythical Man Month <<MM>> (p13)
 - New work in high quality codebases: 49% vs 38% <<AC>> (p51)
 - Recommended refactoring percentage: 15-20% <<TP>> (p219)
 - Softserve example (14/41 months) <<TP>> (p62)
